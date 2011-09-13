@@ -11,9 +11,11 @@ class formz {
 	/**
 	 * Where should the form point to
 	 *
+	 * It' set to PHPSELF in the constuctor
+	 *
 	 * @var string URL
 	 **/
-	var $action = null;
+	public $action = null;
 
 
 
@@ -31,7 +33,7 @@ class formz {
 	 *
 	 * @var string $callback Function name
 	 **/
-	var $callback = false;
+	public $callback = false;
 
 
 
@@ -40,7 +42,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $copy;
+	public $copy;
 
 
 
@@ -49,7 +51,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $copy_to;
+	public $copy_to;
 
 
 
@@ -58,7 +60,7 @@ class formz {
 	 *
 	 * @var array $data Data
 	 **/
-	var $data = false;
+	public $data = false;
 
 
 
@@ -96,7 +98,7 @@ class formz {
 	 *
 	 * @var string before/after
 	 **/
-	var $error_position = 'before';
+	public $error_position = 'before';
 
 
 	/**
@@ -114,7 +116,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $from;
+	public $from;
 
 
 
@@ -123,7 +125,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $from_email;
+	public $from_email;
 
 
 
@@ -132,7 +134,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $global_error_message = 'Sorry, something went wrong :-(';
+	public $global_error_message = 'Sorry, something went wrong :-(';
 
 
 
@@ -141,7 +143,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $header;
+	public $header;
 
 
 
@@ -150,7 +152,7 @@ class formz {
 	 *
 	 * @var bool
 	 **/
-	var $html = true;
+	public $html = true;
 
 
 
@@ -159,7 +161,7 @@ class formz {
 	 *
 	 * @var bool
 	 **/
-	var $html_body = null;
+	public $html_body = null;
 
 
 
@@ -168,7 +170,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $html_body_after = null;
+	public $html_body_after = null;
 
 
 
@@ -177,7 +179,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $html_body_before = null;
+	public $html_body_before = null;
 
 
 	
@@ -186,7 +188,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $html_body_head = null;
+	public $html_body_head = null;
 
 
 
@@ -195,7 +197,7 @@ class formz {
 	 *
 	 * @var string $id
 	 **/
-	var $id = 'formz';
+	public $id = 'formz';
 
 
 
@@ -204,7 +206,7 @@ class formz {
 	 *
 	 * @var bool $label_enclose
 	 **/
-	var $label_enclose = false;
+	public $label_enclose = false;
 
 
 
@@ -213,7 +215,7 @@ class formz {
 	 *
 	 * @var string $method 'post' or 'get'
 	 **/
-	var $method = 'post';
+	public $method = 'post';
 
 
 
@@ -224,7 +226,7 @@ class formz {
 	 *
 	 * @var bool $novalidate
 	 **/
-	var $novalidate = true;
+	public $novalidate = true;
 
 
 
@@ -242,7 +244,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $require_symbol = '*';
+	public $require_symbol = '*';
 
 
 
@@ -251,7 +253,7 @@ class formz {
 	 *
 	 * @var bool
 	 **/
-	var $sendform = true;
+	public $sendform = true;
 
 
 
@@ -270,7 +272,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $subject;
+	public $subject;
 
 
 
@@ -279,7 +281,7 @@ class formz {
 	 *
 	 * @var array
 	 **/
-	var $success = array();
+	public $success = array();
 
 
 
@@ -288,7 +290,7 @@ class formz {
 	 *
 	 * @var string $success_message
 	 **/
-	var $success_message = 'Vielen Dank für Ihre Mitteilung';
+	public $success_message = 'Vielen Dank für Ihre Mitteilung';
 
 
 
@@ -297,7 +299,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	var $to = null;
+	public $to = null;
 
 
 
@@ -308,37 +310,21 @@ class formz {
 	 * @param str $callback Callback funtion
 	 * @author Ralf Hortt
 	 **/
-	public function __construct( $args = '' ) {
+	function __construct( $args = '' ) {
 		$this->action = $_SERVER['PHP_SELF'];
 
 		$args = $this->_chop_string($args);
 
-		if ( isset($args['header']) )
-			$this->subject = $args['header'];
+		if ( $args ) :
 
-		if ( isset($args['to']) )
-			$this->to = $args['to'];
+			foreach ( $args as $key => $val ) :
 
-		if ( isset($args['subject']) )
-			$this->subject = $args['subject'];
+				if ( isset($this->$key) )
+					$this->$key = $val;
 
-		if ( isset($args['body']) )
-			$this->subject = $args['body'];
+			endforeach;
 
-		if ( isset($args['from']))
-			$this->from = $args['from'];
-
-		if ( isset($args['from_email']))
-			$this->from_email = $args['from_email'];
-
-		if ( isset($args['callback']))
-			$this->callback = $args['callback'];
-
-		if ( isset($args['copy']))
-			$this->copy = $args['copy'];
-
-		if ( isset($args['copy_to']))
-			$this->copy_to = $args['copy_to'];
+		endif;
 	}
 
 
@@ -1179,7 +1165,7 @@ class formz {
 					switch( $e['type'] ) :
 						// Input
 						case 'hidden' : case 'text' : case 'search' : case 'tel' : case 'url ' : case 'email' : case 'password' :
-						case 'date' : case 'month' : case 'week' : case 'datetime-local' : case 'range' : case 'color' : case 'password' : case 'datetime' :
+						case 'date' : case 'month' : case 'week' : case 'datetime-local' : case 'range' : case 'color' : case 'password' : case 'datetime' : case 'number' :
 						case 'file' : case 'image ' : $output .= $this->render_input( $e ) . "\n"; break;
 						// Checkbox | Radiobutton
 						case 'checkbox' : case 'radio' : $output .= $this->render_option( $e ) . "\n"; break;
@@ -1696,6 +1682,19 @@ class formz {
 	 **/
 	public function submit( $args ) {
 		$this->add_element( 'type=submit&' . $args );
+	}
+
+
+
+	/**
+	 * Tel
+	 *
+	 * @access public
+	 * @return void
+	 * @author Ralf Hortt
+	 **/
+	public function tel( $args ) {
+		$this->add_element( 'type=tel&' . $args );
 	}
 
 
