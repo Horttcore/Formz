@@ -2,6 +2,7 @@
 /**
  * Formz another form Class
  *
+ * @package Formz
  * @author Ralf Hortt
  */
 class formz {
@@ -22,9 +23,10 @@ class formz {
 	/**
 	 * Plain text mail body
 	 *
+	 * @access protected
 	 * @var string
 	 **/
-	protected $body;
+	protected $body = null;
 
 
 
@@ -40,7 +42,7 @@ class formz {
 	/**
 	 * Which field should handle if a copy mail should be send
 	 *
-	 * @var string
+	 * @var string Form field name
 	 **/
 	public $copy;
 
@@ -49,7 +51,7 @@ class formz {
 	/**
 	 * Which field should handle the copy email address
 	 *
-	 * @var string
+	 * @var string Form field name
 	 **/
 	public $copy_to;
 
@@ -67,6 +69,7 @@ class formz {
 	/**
 	 * Debug all(true), none(false) or a specific field (str:name)
 	 *
+	 * @access protected
 	 * @var string/bool $debug Debug mode
 	 */
 	protected $debug = false;
@@ -86,6 +89,7 @@ class formz {
 	/**
 	 * Form enctype
 	 *
+	 * @access protected
 	 * @var string
 	 **/
 	# protected $enctype = 'text/plain';
@@ -98,7 +102,7 @@ class formz {
 	 *
 	 * @var string before/after
 	 **/
-	public $error_position = 'before';
+	public $error_position = 'after';
 
 
 	/**
@@ -159,9 +163,10 @@ class formz {
 	/**
 	 * html mail body
 	 *
+	 * @access protected
 	 * @var bool
 	 **/
-	public $html_body = null;
+	protected $html_body = null;
 
 
 
@@ -233,6 +238,7 @@ class formz {
 	/**
 	 * The html form output
 	 *
+	 * @access protected
 	 * @var string $output
 	 **/
 	protected $output;
@@ -277,15 +283,6 @@ class formz {
 
 
 	/**
-	 * Callback information
-	 *
-	 * @var array
-	 **/
-	public $success = array();
-
-
-
-	/**
 	 * Success Message after send
 	 *
 	 * @var string $success_message
@@ -306,7 +303,6 @@ class formz {
 	/**
 	 * Constructor
 	 *
-	 * @access public
 	 * @param str $callback Callback funtion
 	 * @author Ralf Hortt
 	 **/
@@ -333,7 +329,7 @@ class formz {
 	 *
 	 * @access protected
 	 * @param $e Form element
-	 * @return void
+	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 **/
 	protected function _button_attributes( $e, $custom = array() )
@@ -394,12 +390,13 @@ class formz {
 
 
 	/**
-	 * undocumented function
+	 * Fieldset attributes
 	 *
-	 * @return void
-	 * @author 
+	 * @access protected
+	 * @return string Attributes as HTML string
+	 * @author Ralf Hortt
 	 **/
-	function _fieldset_attributes( $e, $custom = false)
+	protected function _fieldset_attributes( $e, $custom = false)
 	{
 		$fieldset_attributes = array(
 			'disabled', 'form', 'name'
@@ -413,7 +410,7 @@ class formz {
 	 * Define global attributes
 	 *
 	 * @access protected
-	 * @return void
+	 * @return array
 	 * @author Ralf Hortt
 	 **/
 	protected function _global_attributes()
@@ -429,7 +426,7 @@ class formz {
 	 * @access protected
 	 * @param $e Form element
 	 * @param array $custom
-	 * @return void
+	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 **/
 	protected function _input_attributes( $e, $custom = false )
@@ -457,7 +454,7 @@ class formz {
 	 * @access protected
 	 * @param array $element_attributes
 	 * @param array $custom
-	 * @return void
+	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 ***/
 	protected function _render_attributes( $e, $element_attributes, $custom = array() )
@@ -492,11 +489,16 @@ class formz {
 			$attribute_string = null;
 
 			foreach ( $attributes as $key => $val ) :
-
-				if ( 'checkbox' == $e['type'] && 'name' == $key )
+				// Checkbox name is suffixed with []
+				if ( 'checkbox' == $e['type'] && 'name' == $key ) :
 					$attribute_string .= $key . '="' . $val . '[]" ';
-				else 
+				// Checked
+				elseif ( 'checked' == $key && 'checked' != $val ) :
+					null;
+				// all other
+				else :
 					$attribute_string .= $key . '="' . $val . '" ';
+				endif;
 
 			endforeach;
 
@@ -511,7 +513,7 @@ class formz {
 	 * Render the error element
 	 *
 	 * @access protected
-	 * @return void
+	 * @return string
 	 * @author Ralf Hortt
 	 **/
 	protected function _render_error( $message )
@@ -525,7 +527,8 @@ class formz {
 	 * Sanitize a string
 	 *
 	 * @access protected
-	 * @param str $string String to convert
+	 * @param string $string String to convert
+	 * @return string Converted string
 	 * @author Ralf Hortt
 	 **/
 	 protected function _sanitize( $string )
@@ -540,7 +543,7 @@ class formz {
 	 * Attributes for select
 	 *
 	 * @access protected
-	 * @return void
+	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 **/
 	protected function _select_attributes( array $e, $custom = array() )
@@ -560,7 +563,7 @@ class formz {
 	 * @access protected
 	 * @param $e Form element
 	 * @param array $custom
-	 * @return void
+	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 **/
 	protected function _textarea_attributes( $e, $custom = array() )
@@ -578,13 +581,14 @@ class formz {
 	 * Wrap the Element
 	 *
 	 * @access protected
-	 * @return void
+	 * @return string
 	 * @author Ralf Hortt
 	 **/
 	protected function _wrap_after( array $e )
 	{
-		if ( !isset($e['wrap']) || isset($e['wrap']) && 'after' == $e['wrap'] )
+		if ( !isset($e['wrap']) || isset($e['wrap']) && 'after' == $e['wrap'] ) :
 			return '</p>';
+		endif;
 	}
 
 
@@ -598,12 +602,12 @@ class formz {
 	 **/
 	protected function _wrap_before( array $e )
 	{
-		$class = ( 'submit' == $e['type'] ) ? 'submit' : '';
-		$class2 = ( isset($e['align']) && 'vertical' == $e['align'] ) ? 'vertical-options' : '';
-		$class3 = ( isset($e['wrap_class']) ) ? $e['wrap_class'] : '';
-
-		if ( !isset($e['wrap']) || isset($e['wrap']) && 'before' == $e['wrap'] )
+		if ( !isset($e['wrap']) || isset($e['wrap']) && 'before' == $e['wrap'] ) :
+			$class = ( 'submit' == $e['type'] ) ? 'submit' : '';
+			$class2 = ( isset($e['align']) && 'vertical' == $e['align'] ) ? 'vertical-options' : '';
+			$class3 = ( isset($e['wrap_class']) ) ? $e['wrap_class'] : '';
 			return '<p class="element-wrap element-wrap-' . $this->_sanitize($e['name']) . ' '. $class .' ' . $class2 . ' ' . $class3 . '">';
+		endif;
 	}
 
 
@@ -663,7 +667,7 @@ class formz {
 	 * Button
 	 *
 	 * @access public
-	 * @param string $args 
+	 * @param string $args
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
@@ -898,10 +902,11 @@ class formz {
 	/**
 	 * Fieldset closeing tag
 	 *
+	 * @access public
 	 * @return void
-	 * @author 
+	 * @author Ralf Hortt
 	 **/
-	function fieldset_close()
+	public function fieldset_close()
 	{
 		$this->html('</fieldset>');
 	}
@@ -916,7 +921,7 @@ class formz {
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	function fieldset_open( $args = '' )
+	public function fieldset_open( $args = '' )
 	{
 		$e = $this->_chop_string( $args );
 		$this->html( $this->render_fieldset($e) );
@@ -1010,7 +1015,6 @@ class formz {
 		$text = str_replace( array('=', ',', '&', '::'), array('\=', '\,', '\&', '\::'), $text ); # Escape internal splitting characters
 		$this->add_element( 'type=html&text=' . $text . '&mailtext=' . $mailtext );
 	}
-
 
 
 
@@ -1164,7 +1168,7 @@ class formz {
 					// Render the Element
 					switch( $e['type'] ) :
 						// Input
-						case 'hidden' : case 'text' : case 'search' : case 'tel' : case 'url ' : case 'email' : case 'password' :
+						case 'hidden' : case 'text' : case 'search' : case 'tel' : case 'url' : case 'email' : case 'password' : case 'time' :
 						case 'date' : case 'month' : case 'week' : case 'datetime-local' : case 'range' : case 'color' : case 'password' : case 'datetime' : case 'number' :
 						case 'file' : case 'image ' : $output .= $this->render_input( $e ) . "\n"; break;
 						// Checkbox | Radiobutton
@@ -1352,12 +1356,16 @@ class formz {
 				$args = array( 'id' => $e['name'] . '-' . $this->_sanitize($label), 'value' => $val );
 
 				if ( isset($this->data[$e['name']]) && $val == $this->data[$e['name']] || ( isset($this->data[$e['name']]) &&  is_array($this->data[$e['name']]) && in_array($val, $this->data[$e['name']]) ) ) :
-					$args['checked'] = 'checked';
+					$checked = 'checked="checked"';
 				elseif ( 'radio' == $e['type'] && !isset( $this->data['name'] ) && 0 == $i && !isset($e['default']) ) :
-					$args['checked'] = 'checked';
-				elseif ( isset( $e['default']) && $val == $e['default'] ) :
-					$args['checked'] = 'checked';
+					$checked = 'checked="checked"';
+				elseif ( isset( $e['checked']) && ( $val == $e['checked'] || in_array($val, $e['checked']) ) ) :
+					$checked = 'checked="checked"';
+				else :
+					unset($checked);
 				endif;
+
+
 
 				# Reset input value from $ to label
 				if ( '$' == $val )
@@ -1367,7 +1375,7 @@ class formz {
 				if ( $this->label_enclose )
 					$output .= '<label class="options-label" for="' . $e['name'] . '-' . $this->_sanitize($label) . '">';			
 
-				$output .= '<input ' . $this->_input_attributes( $e, $args ) . ' /> ';
+				$output .= '<input ' . $this->_input_attributes( $e, $args ) . ' ' . $checked . ' /> ';
 
 				if ( !$this->label_enclose )
 					$output .= '<label class="options-label" for="' . $e['name'] . '-' . $this->_sanitize($label) . '">';
@@ -1426,7 +1434,7 @@ class formz {
 					$val = $label;
 				endif;
 
-				$selected = ( isset($e['selected']) && $val == $e['selected'] && !isset($this->data[$e['name']]) ) ? 'selected=selected' : '';
+				$selected = ( isset($e['selected']) && ( $val == $e['selected'] || in_array($val, $e['selected']) ) && !isset($this->data[$e['name']]) ) ? 'selected=selected' : '';
 				$selected = ( $val == $this->data[$e['name']] || ( is_array($this->data[$e['name']]) && in_array($val, $this->data[$e['name']]) ) ) ? 'selected="selected"' : $selected;
 
 				$output .= '<option value="' . $val . '" ' . $selected . '>' . $label . '</option>';
@@ -1469,7 +1477,7 @@ class formz {
 			$output .= '</label>';
 
 		// Input Element
-		$val = ( isset($e['default']) ) ? $e['default'] : '';
+		$val = ( isset($e['value']) ) ? $e['value'] : '';
 		$val = ( isset($this->data[$e['name']]) ) ? $this->data[$e['name']] : $val;
 		$output .= '<textarea ' . $this->_textarea_attributes( $e, $args ) . '>' . $val . '</textarea>';
 
