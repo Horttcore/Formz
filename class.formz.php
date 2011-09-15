@@ -105,6 +105,16 @@ class formz {
 	public $error_position = 'after';
 
 
+
+	/**
+	 * Error message are using this tag
+	 *
+	 * @var string
+	 **/
+	protected $error_tag = 'span';
+
+
+
 	/**
 	 * The form array
 	 *
@@ -297,6 +307,15 @@ class formz {
 	 * @var string
 	 **/
 	public $to = null;
+
+
+
+	/**
+	 * Input and labels are wrapped in this tag
+	 *
+	 * @var string
+	 **/
+	public $wrap_Tag = 'p';
 
 
 
@@ -518,7 +537,7 @@ class formz {
 	 **/
 	protected function _render_error( $message )
 	{
-		return '<span class="message error">' . stripslashes( $message ) . '</span>';
+		return '<' . $this->error_tag . ' class="message error">' . stripslashes( $message ) . '</' . $this->error_tag . '>';
 	}
 
 
@@ -587,7 +606,7 @@ class formz {
 	protected function _wrap_after( array $e )
 	{
 		if ( !isset($e['wrap']) || isset($e['wrap']) && 'after' == $e['wrap'] ) :
-			return '</p>';
+			return '</' . $this->wrap_tag . '>';
 		endif;
 	}
 
@@ -606,7 +625,7 @@ class formz {
 			$class = ( 'submit' == $e['type'] ) ? 'submit' : '';
 			$class2 = ( isset($e['align']) && 'vertical' == $e['align'] ) ? 'vertical-options' : '';
 			$class3 = ( isset($e['wrap_class']) ) ? $e['wrap_class'] : '';
-			return '<p class="element-wrap element-wrap-' . $this->_sanitize($e['name']) . ' '. $class .' ' . $class2 . ' ' . $class3 . '">';
+			return '<' . $this->wrap_tag . ' class="element-wrap element-wrap-' . $this->_sanitize($e['name']) . ' '. $class .' ' . $class2 . ' ' . $class3 . '">';
 		endif;
 	}
 
