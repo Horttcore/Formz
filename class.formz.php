@@ -315,7 +315,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	public $wrap_Tag = 'p';
+	public $wrap_tag = 'p';
 
 
 
