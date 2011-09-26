@@ -111,7 +111,7 @@ class formz {
 	 *
 	 * @var string
 	 **/
-	protected $error_tag = 'span';
+	public $error_tag = 'span';
 
 
 
@@ -1181,7 +1181,7 @@ class formz {
 						$output .= $this->_wrap_before( $e ) . "\n";
 
 					// Shows the error message if needed
-					if ( 'before' == $this->error_position )
+					if ( ( 'before' == $this->error_position && !isset( $e['error_position'] ) ) || 'before' == $e['error_position'] )
 						$output .= $this->checkfield( $e, true ) . "\n";
 
 					// Render the Element
@@ -1203,7 +1203,7 @@ class formz {
 					endswitch;
 
 					// Shows the error message if needed
-					if ( 'after' == $this->error_position )
+					if ( ( 'after' == $this->error_position && !isset($e['error_position'] ) ) || 'after' == $e['error_position'] )
 						$output .= $this->checkfield( $e, true ) . "\n";
 
 
@@ -1383,8 +1383,6 @@ class formz {
 				else :
 					unset($checked);
 				endif;
-
-
 
 				# Reset input value from $ to label
 				if ( '$' == $val )
