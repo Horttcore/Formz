@@ -93,7 +93,7 @@ class formz {
 	 * @var string
 	 **/
 	# protected $enctype = 'text/plain';
-	protected $enctype = null;
+	protected $enctype;
 
 
 
@@ -144,7 +144,7 @@ class formz {
 
 
 	/**
-	 * Global error message for sending an email
+	 * Global error message
 	 *
 	 * @var string
 	 **/
@@ -162,7 +162,7 @@ class formz {
 
 
 	/**
-	 * if the form mail is html or plain text
+	 * If the form mail is html or plain text
 	 *
 	 * @var bool
 	 **/
@@ -265,7 +265,7 @@ class formz {
 
 
 	/**
-	 * Should the form be send wie php mail() after validation
+	 * Should the form be send with php mail() after validation
 	 *
 	 * @var bool
 	 **/
@@ -297,7 +297,7 @@ class formz {
 	 *
 	 * @var string $success_message
 	 **/
-	public $success_message = 'Vielen Dank für Ihre Mitteilung';
+	public $success_message = 'Thank you for your message!';
 
 
 
@@ -1376,11 +1376,11 @@ class formz {
 
 				if ( isset($this->data[$e['name']]) && $val == $this->data[$e['name']] || ( isset($this->data[$e['name']]) &&  is_array($this->data[$e['name']]) && in_array($val, $this->data[$e['name']]) ) ) :
 					$checked = 'checked="checked"';
-				elseif ( isset( $e['checked']) && ( $val == $e['checked'] || is_array($val) && in_array($val, $e['checked']) ) ) :
+				elseif ( isset( $e['checked']) && ( $val == $e['checked'] || ( is_array($e['checked']) && in_array($val, $e['checked']) ) ) ) : # Prefilled
 					$checked = 'checked="checked"';
-				elseif ( 'radio' == $e['type'] && !isset( $this->data['name'] ) && 0 == $i && !isset($e['checked']) ) :
+				elseif ( 'radio' == $e['type'] && !isset( $this->data['name'] ) && 0 == $i && !isset($e['checked']) ) : # in $_POST/$_GET
 					$checked = 'checked="checked"';
-				else :
+				else :	
 					unset($checked);
 				endif;
 
@@ -1451,7 +1451,7 @@ class formz {
 					$val = $label;
 				endif;
 
-				$selected = ( isset($e['selected']) && ( $val == $e['selected'] || in_array($val, $e['selected']) ) && !isset($this->data[$e['name']]) ) ? 'selected=selected' : '';
+				$selected = ( isset($e['selected']) && ( $val == $e['selected'] || ( is_array($e['selected']) && in_array($val, $e['selected']) ) ) && !isset($this->data[$e['name']]) ) ? 'selected=selected' : '';
 				$selected = ( $val == $this->data[$e['name']] || ( is_array($this->data[$e['name']]) && in_array($val, $this->data[$e['name']]) ) ) ? 'selected="selected"' : $selected;
 
 				$output .= '<option value="' . $val . '" ' . $selected . '>' . $label . '</option>';
