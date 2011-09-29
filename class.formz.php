@@ -1376,9 +1376,9 @@ class formz {
 
 				if ( isset($this->data[$e['name']]) && $val == $this->data[$e['name']] || ( isset($this->data[$e['name']]) &&  is_array($this->data[$e['name']]) && in_array($val, $this->data[$e['name']]) ) ) :
 					$checked = 'checked="checked"';
-				elseif ( 'radio' == $e['type'] && !isset( $this->data['name'] ) && 0 == $i && !isset($e['default']) ) :
+				elseif ( isset( $e['checked']) && ( $val == $e['checked'] || is_array($val) && in_array($val, $e['checked']) ) ) :
 					$checked = 'checked="checked"';
-				elseif ( isset( $e['checked']) && ( $val == $e['checked'] || in_array($val, $e['checked']) ) ) :
+				elseif ( 'radio' == $e['type'] && !isset( $this->data['name'] ) && 0 == $i && !isset($e['checked']) ) :
 					$checked = 'checked="checked"';
 				else :
 					unset($checked);
