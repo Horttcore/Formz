@@ -605,7 +605,7 @@ class formz {
 	 **/
 	protected function _wrap_after( array $e )
 	{
-		if ( !isset($e['wrap']) || isset($e['wrap']) && 'after' == $e['wrap'] ) :
+		if ( ( !isset($e['wrap']) || isset($e['wrap']) && 'after' == $e['wrap'] ) && $e['type'] != 'hidden' ) :
 			return '</' . $this->wrap_tag . '>';
 		endif;
 	}
@@ -621,7 +621,7 @@ class formz {
 	 **/
 	protected function _wrap_before( array $e )
 	{
-		if ( !isset($e['wrap']) || isset($e['wrap']) && 'before' == $e['wrap'] ) :
+		if ( ( !isset($e['wrap']) || isset($e['wrap']) && 'before' == $e['wrap'] ) && $e['type'] != 'hidden' ) :
 			$class = ( 'submit' == $e['type'] ) ? 'submit' : '';
 			$class2 = ( isset($e['align']) && 'vertical' == $e['align'] ) ? 'vertical-options' : '';
 			$class3 = ( isset($e['wrap_class']) ) ? $e['wrap_class'] : '';
