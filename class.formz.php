@@ -35,7 +35,7 @@ class formz {
 	 *
 	 * @var string $callback Function name
 	 **/
-	public $callback = false;
+	public $callback = FALSE;
 
 
 
@@ -62,17 +62,17 @@ class formz {
 	 *
 	 * @var array $data Data
 	 **/
-	public $data = false;
+	public $data = FALSE;
 
 
 
 	/**
-	 * Debug all(true), none(false) or a specific field (str:name)
+	 * Debug all(TRUE), none(FALSE) or a specific field (str:name)
 	 *
 	 * @access protected
 	 * @var string/bool $debug Debug mode
 	 */
-	protected $debug = false;
+	protected $debug = FALSE;
 
 
 
@@ -166,7 +166,7 @@ class formz {
 	 *
 	 * @var bool
 	 **/
-	public $html = true;
+	public $html = TRUE;
 
 
 
@@ -221,7 +221,7 @@ class formz {
 	 *
 	 * @var bool $label_enclose
 	 **/
-	public $label_enclose = false;
+	public $label_enclose = FALSE;
 
 
 
@@ -235,13 +235,13 @@ class formz {
 
 
 	/**
-	 * If set to true the form uses the novalidate attribute
+	 * If set to TRUE the form uses the novalidate attribute
 	 *
-	 * This value should stay on true, due a bug with required in checkboxes
+	 * This value should stay on TRUE, due a bug with required in checkboxes
 	 *
 	 * @var bool $novalidate
 	 **/
-	public $novalidate = true;
+	public $novalidate = TRUE;
 
 
 
@@ -269,7 +269,7 @@ class formz {
 	 *
 	 * @var bool
 	 **/
-	public $sendform = true;
+	public $sendform = TRUE;
 
 
 
@@ -415,7 +415,7 @@ class formz {
 	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 **/
-	protected function _fieldset_attributes( $e, $custom = false)
+	protected function _fieldset_attributes( $e, $custom = FALSE)
 	{
 		$fieldset_attributes = array(
 			'disabled', 'form', 'name'
@@ -448,10 +448,10 @@ class formz {
 	 * @return string Attributes as HTML string
 	 * @author Ralf Hortt
 	 **/
-	protected function _input_attributes( $e, $custom = false )
+	protected function _input_attributes( $e, $custom = FALSE )
 	{
 		// Prefil the field if an error occured
-		if ( $this->data[$e['name']] )
+		if ( $this->data[$e['name']] && 'checkbox' != $e['type'] && 'radio' != $e['type'] )
 			$custom['value'] = $this->data[$e['name']];
 		elseif( isset($e['default']) ) 
 			$custom['value'] = $e['default'];
@@ -717,32 +717,32 @@ class formz {
 	 *
 	 * @access protected
 	 * @param array $e Element to check
-	 * @param bool $return_error_message Set to true the return the error message
+	 * @param bool $return_error_message Set to TRUE the return the error message
 	 * @return bool/str Errormessage
 	 * @author Ralf Hortt
 	 **/
-	protected function checkfield( $e, $return_error_message = false )
+	protected function checkfield( $e, $return_error_message = FALSE )
 	{
-		$error = false;
+		$error = FALSE;
 
-		if ( false !== $this->data ) :
+		if ( FALSE !== $this->data ) :
 			// Field is empty
 			if ( isset($e['required']) && !$this->data[$e['name']] ) :
 
-				if ( true === $return_error_message )
+				if ( TRUE === $return_error_message )
 					return $this->_render_error( $e['data-error-message'] );
 				else 
-					$error = true;
+					$error = TRUE;
 
 			endif;
 
-			// Callback is false or not callable
+			// Callback is FALSE or not callable
 			if ( isset($e['callback']) && '' != $e['callback'] && ( !is_callable($e['callback']) || !call_user_func($e['callback'], $this->data[$e['name']]) ) ) :
 
-				if ( true === $return_error_message )
+				if ( TRUE === $return_error_message )
 					return $this->_render_error( $e['data-callback-message'] );
 				else
-					$error = true;
+					$error = TRUE;
 
 			endif;
 
@@ -754,10 +754,10 @@ class formz {
 					foreach ( $e['require'] as $require ) :
 
 						if ( '' == $this->data[$require] ) :
-							if ( true === $return_error_message )
+							if ( TRUE === $return_error_message )
 								return $this->_render_error( $e['data-error-message'] );
 							else
-								$error = true;
+								$error = TRUE;
 						endif;
 
 					endforeach;
@@ -765,28 +765,28 @@ class formz {
 				else :
 
 					if ( !isset($this->data[$e['require']]) ) :
-						if ( true === $return_error_message )
+						if ( TRUE === $return_error_message )
 							return $this->_render_error( $e['data-error-message'] );
 						else
-							$error = true;
+							$error = TRUE;
 					endif;
 
 				endif;
 
 			endif;
 
-			if ( isset($e['regex']) && !preg_match($e['regex'], $this->data[$e['name']]) ) :
+			if ( isset($e['regex']) && 0 == preg_match($e['regex'], $this->data[$e['name']]) ) :
 
-				if ( true === $return_error_message ) :
+				if ( TRUE === $return_error_message ) :
 					return $this->_render_error( $e['data-regex-message'] );
 				else :
-					$error = true;
+					$error = TRUE;
 				endif;
 
 			endif;
 
-			if ( true === $error )
-				return false;
+			if ( TRUE === $error )
+				return FALSE;
 
 		endif;
 	}
@@ -812,16 +812,16 @@ class formz {
 
 			foreach ( $this->form as $element ) :
 
-				if ( false === $this->checkfield( $element) ) :
-					return false;
+				if ( FALSE === $this->checkfield( $element) ) :
+					return FALSE;
 				endif;
 
 			endforeach;
 
 			if ( !empty($this->data) )
-				return true;
+				return TRUE;
 			else
-				return false;
+				return FALSE;
 
 		endif;
 	}
@@ -896,7 +896,7 @@ class formz {
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	public function debug( $debug = true )
+	public function debug( $debug = TRUE )
 	{
 		$this->debug = $debug;
 	}
@@ -1030,7 +1030,7 @@ class formz {
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	public function html( $text, $mailtext = true ) {
+	public function html( $text, $mailtext = TRUE ) {
 		$text = str_replace( array('=', ',', '&', '::'), array('\=', '\,', '\&', '\::'), $text ); # Escape internal splitting characters
 		$this->add_element( 'type=html&text=' . $text . '&mailtext=' . $mailtext );
 	}
@@ -1142,7 +1142,7 @@ class formz {
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	public function render( $return = false ) {
+	public function render( $return = FALSE ) {
 
 		if ( $this->checkform() ) :
 
@@ -1164,7 +1164,7 @@ class formz {
 
 		else :
 			/* Print debug */
-			if ( true === $this->debug ) : $output = '<pre>' . print_r($this->form, true) . '</pre>'; endif;
+			if ( TRUE === $this->debug ) : $output = '<pre>' . print_r($this->form, TRUE) . '</pre>'; endif;
 
 			if ( $this->form ) :
 
@@ -1174,7 +1174,7 @@ class formz {
 
 					// Debug a specific field
 					if ( $e['name'] == $this->debug )
-						$output .= '<pre>' . print_r($e, true) . '</pre>';
+						$output .= '<pre>' . print_r($e, TRUE) . '</pre>';
 
 					// Wrap before
 					if ( 'html' != $e['type'])
@@ -1182,7 +1182,7 @@ class formz {
 
 					// Shows the error message if needed
 					if ( ( 'before' == $this->error_position && !isset( $e['error_position'] ) ) || 'before' == $e['error_position'] )
-						$output .= $this->checkfield( $e, true ) . "\n";
+						$output .= $this->checkfield( $e, TRUE ) . "\n";
 
 					// Render the Element
 					switch( $e['type'] ) :
@@ -1204,7 +1204,7 @@ class formz {
 
 					// Shows the error message if needed
 					if ( ( 'after' == $this->error_position && !isset($e['error_position'] ) ) || 'after' == $e['error_position'] )
-						$output .= $this->checkfield( $e, true ) . "\n";
+						$output .= $this->checkfield( $e, TRUE ) . "\n";
 
 
 					// Wrap after
@@ -1323,14 +1323,14 @@ class formz {
 		if ( isset($e['label']) )
 			$output = '<label for="' . $e['id'] . '">' . stripslashes( $e['label'] ) . ' ';
 
-		if ( isset($e['label']) && false === $this->label_enclose  )
+		if ( isset($e['label']) && FALSE === $this->label_enclose  )
 			$output .= '</label>';
 
 		// Input Element
 		$output .= '<input ' . $this->_input_attributes( $e ) . ' />';
 
 		// Label enclose
-		if ( isset($e['label']) && true === $this->label_enclose )
+		if ( isset($e['label']) && TRUE === $this->label_enclose )
 			$output .= '</label>';
 
 		return $output;
@@ -1390,7 +1390,7 @@ class formz {
 
 				// Label enclose
 				if ( $this->label_enclose )
-					$output .= '<label class="options-label" for="' . $e['name'] . '-' . $this->_sanitize($label) . '">';			
+					$output .= '<label class="options-label" for="' . $e['name'] . '-' . $this->_sanitize($label) . '">';
 
 				$output .= '<input ' . $this->_input_attributes( $e, $args ) . ' ' . $checked . ' /> ';
 
@@ -1431,7 +1431,7 @@ class formz {
 		if ( isset($e['label']) )
 			$output = '<label for="' . $e['id'] . '">' . stripslashes( $e['label'] ) . ' ';
 
-		if ( isset($e['label']) && false === $this->label_enclose  )
+		if ( isset($e['label']) && FALSE === $this->label_enclose  )
 			$output .= '</label>';
 
 		if ( isset($e['value']) ) :
@@ -1463,7 +1463,7 @@ class formz {
 		endif;
 
 		// Label enclose
-		if ( isset($e['label']) && true === $this->label_enclose )
+		if ( isset($e['label']) && TRUE === $this->label_enclose )
 			$output .= '</label>';
 
 		return $output;
@@ -1490,7 +1490,7 @@ class formz {
 		if ( isset($e['label']) )
 			$output = '<label class="textarea-label" for="' . $e['id'] . '">' . stripslashes( $e['label'] ) . ' ';
 
-		if ( isset($e['label']) && false === $this->label_enclose  )
+		if ( isset($e['label']) && FALSE === $this->label_enclose  )
 			$output .= '</label>';
 
 		// Input Element
@@ -1499,7 +1499,7 @@ class formz {
 		$output .= '<textarea ' . $this->_textarea_attributes( $e, $args ) . '>' . $val . '</textarea>';
 
 		// Label enclose
-		if ( isset($e['label']) && true === $this->label_enclose )
+		if ( isset($e['label']) && TRUE === $this->label_enclose )
 			$output .= '</label>';
 
 		return $output;
@@ -1690,9 +1690,9 @@ class formz {
 				mail($this->data[$this->copy_to], '[KOPIE]' . $this->subject, $body, $headers);
 			endif;
 
-			return true;
+			return TRUE;
 		else :
-			return false;
+			return FALSE;
 		endif;
 	}
 
