@@ -1,93 +1,37 @@
-<!DOCTYPE HTML>
-<html lang="de-DE">
-<head>
-	<meta charset="UTF-8">
-	<title>Formz Demo</title>
-	<script src="jquery-v1.6.3.js" type="text/javascript"></script>
-	<script src="jquery.formz.js" type="text/javascript"></script>
-	<style type="text/css">
-	body {
-			font: 14px/18px sans-serif
-		}
-		.error {
-			color: #ff0000;
-		}
-		.hidden {
-			display: none;
-		}
-	
-		label {
-			display: inline-block;
-			width: 200px;
-		}
+<?php require_once('./include/header.php'); ?>
 
-		textarea {
-			vertical-align: top;
-		}
+<h2>Elements</h2>
+<ul>
+	<li><a href="./demo/input.php">Input</a></li>
+	<li><a href="./demo/radio-checkbox.php">Radiobuttons &amp; Checkboxes</a></li>
+	<li><a href="./demo/select.php">Select</a></li>
+	<li><a href="./demo/textarea.php">Textarea</a></li>
 
-		.message {
-			padding: 3px 5px;
-		}
+	<li><a href="./demo/elements.php">All elements</a></li>
+</ul>
 
-		.option-group-label {
-			display: block;	
-		}
+<h2>Options</h2>
+<ul>
+	<li><a href="./demo/options.php">Options</a></li>
+</ul>
 
-		.options-label {
-			width: auto;
-		}
+<h2>Validation</h2>
+<ul>
+	<li><a href="./demo/required.php">Required</a></li>
+	<li><a href="./demo/validate.php">Validate</a></li>
+</ul>
 
-		input[type=checkbox], input[type=radio] {
-			margin-left: 20px;
-		}
-	</style>
-</head>
-<body>
+<h2>Filter</h2>
+<ul>
+	<li><a href="./demo/sanitize.php">Sanitize</a></li>
+	<li><a href="./demo/replace.php">Replace</a></li>
+	<li><a href="./demo/filters.php">Filter</a></li>
+</ul>
 
-<h1>Formz Demo</h1>
+<h2>Callbacks</h2>
+<ul>
+	<li><a href="./demo/mail.php">Mail</a></li>
+	<li><a href="./demo/db.php">Database</a></li>
+</ul>
 
-<?php $mem_before = memory_get_usage() / 1048576 ?>
-<?php require_once( 'class.formz.php' ); ?>
-<?php $mem_loaded = memory_get_usage() / 1048576 ?>
-
-<?php
-# Init
-$form = new formz();
-$form->sendform = false;
-$form->error_position = 'after';
-$form->id = 'loginform';
-# Fields
-$form->input('name=user&label=User:');
-$form->password('name=password&label=Password:');
-$form->button('label=Send&type=submit&name=send');
-# Validation
-$form->required('name=user&error_message=Bitte Benutzernamen eingeben');
-$form->required('name=password&error_message=Bitte geben Sie Ihr Passwort ein');
-# Output
-$form->render();
-
-# Init
-$form = new formz();
-$form->sendform = false;
-$form->error_position = 'after';
-# Fields
-$form->input('name=title&label=Title:');
-$form->textarea('name=content&label=Content:');
-$form->button('label=Send&type=submit&name=send');
-# Validation
-$form->required('name=title&error_message=Bitte geben Sie einen Titel für Ihren Beitrag an.');
-# Output
-$form->render();
-
-
-$mem_rendered = memory_get_usage() / 1048576 ?>
-
-<h1>Benchmark</h1>
-<p>
-	<strong>Before Load:</strong> <?php echo number_format($mem_before,2) ?> MB<br />
-	<strong>After Load:</strong> <?php echo number_format($mem_loaded,2) ?> MB<br />
-	<strong>After Render:</strong> <?php echo number_format($mem_rendered,2) ?> MB<br />
-</p>
-
-</body>
-</html>
+<?php require_once('./include/footer.php'); ?>

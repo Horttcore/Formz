@@ -14,6 +14,7 @@ class formz {
 	 *
 	 * It' set to PHPSELF in the constuctor
 	 *
+	 * @access public
 	 * @var string URL
 	 **/
 	public $action = null;
@@ -33,6 +34,7 @@ class formz {
 	/**
 	 * Name of a callback function if the form was succesfully send
 	 *
+	 * @access public
 	 * @var string $callback Function name
 	 **/
 	public $callback = FALSE;
@@ -42,6 +44,7 @@ class formz {
 	/**
 	 * Which field should handle if a copy mail should be send
 	 *
+	 * @access public
 	 * @var string Form field name
 	 **/
 	public $copy;
@@ -51,6 +54,7 @@ class formz {
 	/**
 	 * Which field should handle the copy email address
 	 *
+	 * @access public
 	 * @var string Form field name
 	 **/
 	public $copy_to;
@@ -60,6 +64,7 @@ class formz {
 	/**
 	 * Copy of $_POST/$_GET to check
 	 *
+	 * @access public
 	 * @var array $data Data
 	 **/
 	public $data = FALSE;
@@ -92,7 +97,6 @@ class formz {
 	 * @access protected
 	 * @var string
 	 **/
-	# protected $enctype = 'text/plain';
 	protected $enctype;
 
 
@@ -100,6 +104,7 @@ class formz {
 	/**
 	 * The position of the error document
 	 *
+	 * @access public
 	 * @var string before/after
 	 **/
 	public $error_position = 'after';
@@ -109,9 +114,49 @@ class formz {
 	/**
 	 * Error message are using this tag
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $error_tag = 'span';
+
+
+
+	/**
+	 * Filter Dictonary
+	 *
+	 * @access protected
+	 * @var array
+	 **/
+	protected $filter = array(
+		'FILTER_VALIDATE_BOOLEAN' => 258,
+		'FILTER_VALIDATE_EMAIL' => 274,
+		'FILTER_VALIDATE_FLOAT' => 259,
+		'FILTER_VALIDATE_INT' => 257,
+		'FILTER_VALIDATE_IP' => 275,
+		'FILTER_VALIDATE_REGEXP' => 272,
+		'FILTER_VALIDATE_URL' => 273
+	);
+
+
+
+	/**
+	 * Filter flags
+	 *
+	 * @access protected
+	 * @var array
+	 **/
+	protected $filter_flags = array(
+		'FILTER_NULL_ON_FAILURE' => 134217728,
+		'FILTER_FLAG_ALLOW_THOUSAND' => 8192,
+		'FILTER_FLAG_ALLOW_OCTAL' => 1,
+		'FILTER_FLAG_ALLOW_HEX' => 2,
+		'FILTER_FLAG_IPV4' => 1048576,
+		'FILTER_FLAG_IPV6' => 2097152,
+		'FILTER_FLAG_NO_PRIV_RANGE' => 8388608,
+		'FILTER_FLAG_NO_RES_RANGE' => 4194304,
+		'FILTER_FLAG_PATH_REQUIRED' => 262144,
+		'FILTER_FLAG_QUERY_REQUIRED' => 524288
+	);
 
 
 
@@ -128,6 +173,7 @@ class formz {
 	/**
 	 * From mail header
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $from;
@@ -137,6 +183,7 @@ class formz {
 	/**
 	 * From E-Mail mail header
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $from_email;
@@ -146,6 +193,7 @@ class formz {
 	/**
 	 * Global error message
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $global_error_message = 'Sorry, something went wrong :-(';
@@ -155,6 +203,7 @@ class formz {
 	/**
 	 * Mail header
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $header;
@@ -164,6 +213,7 @@ class formz {
 	/**
 	 * If the form mail is html or plain text
 	 *
+	 * @access public
 	 * @var bool
 	 **/
 	public $html = TRUE;
@@ -183,6 +233,7 @@ class formz {
 	/**
 	 * Inject code in the html email template before the </body> tag
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $html_body_after = null;
@@ -192,6 +243,7 @@ class formz {
 	/**
 	 * Inject code in the html email template after the <body> tag
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $html_body_before = null;
@@ -201,6 +253,7 @@ class formz {
 	/**
 	 * Inject code in the html email template between the <head> tag
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $html_body_head = null;
@@ -210,6 +263,7 @@ class formz {
 	/**
 	 * Form ID
 	 *
+	 * @access public
 	 * @var string $id
 	 **/
 	public $id = 'formz';
@@ -219,6 +273,7 @@ class formz {
 	/**
 	 * Should the form elements be enclosed by the label tag?
 	 *
+	 * @access public
 	 * @var bool $label_enclose
 	 **/
 	public $label_enclose = FALSE;
@@ -228,6 +283,7 @@ class formz {
 	/**
 	 * Form method
 	 *
+	 * @access public
 	 * @var string $method 'post' or 'get'
 	 **/
 	public $method = 'post';
@@ -239,6 +295,7 @@ class formz {
 	 *
 	 * This value should stay on TRUE, due a bug with required in checkboxes
 	 *
+	 * @access public
 	 * @var bool $novalidate
 	 **/
 	public $novalidate = TRUE;
@@ -258,6 +315,7 @@ class formz {
 	/**
 	 * Required symbole
 	 *
+	 * @access public
 	 * @var string
 	 **/
 	public $require_symbol = '*';
@@ -265,8 +323,94 @@ class formz {
 
 
 	/**
+	 * Sanitize Dictonary
+	 *
+	 * @access protected
+	 * @var array
+	 */
+	protected $sanitize = array(
+		'FILTER_SANITIZE_EMAIL' => 517,
+		'FILTER_SANITIZE_ENCODED' => 514,
+		'FILTER_SANITIZE_MAGIC_QUOTES' => 521,
+		'FILTER_SANITIZE_NUMBER_FLOAT' => 520,
+		'FILTER_SANITIZE_NUMBER_INT' => 519,
+		'FILTER_SANITIZE_SPECIAL_CHARS' => 515,
+		'FILTER_SANITIZE_FULL_SPECIAL_CHARS' => 515,
+		'FILTER_SANITIZE_STRING' => 513,
+		'FILTER_SANITIZE_STRIPPED' => 513,
+		'FILTER_SANITIZE_URL' => 518,
+		'FILTER_UNSAFE_RAW' => 516
+	);
+
+
+
+	/**
+	 * Sanitize Flags Dictonary
+	 *
+	 * @access protected
+	 * @var arra
+	 **/
+	protected $sanitize_flags = array(
+		'FILTER_FLAG_ALLOW_FRACTION' => 4096,
+		'FILTER_FLAG_ALLOW_THOUSAND' => 8192,
+		'FILTER_FLAG_ALLOW_SCIENTIFIC' => 16384,
+		'FILTER_FLAG_ENCODE_AMP' => 64,
+		'FILTER_FLAG_ENCODE_HIGH' => 32,
+		'FILTER_FLAG_ENCODE_LOW' => 16,
+		'FILTER_FLAG_NO_ENCODE_QUOTES' => 128,
+		'FILTER_FLAG_STRIP_HIGH' => 8,
+		'FILTER_FLAG_STRIP_LOW' => 4
+	);
+
+
+
+	/**
+	 * Should the form saved in a database?
+	 *
+	 * @access public
+	 * @var string
+	 **/
+	var $save_form = FALSE;
+
+
+
+	/**
+	 * Primary key for $save_table
+	 *
+	 * @access public
+	 * @var string
+	 **/
+	public $save_key;
+
+
+
+	/**
+	 * How to map data to table
+	 *
+	 * If is set to false, the script will try to map the fields by his own 
+	 * Format array( 'table-row' => 'form-field-name' );
+	 *
+	 * @access public
+	 * @var string
+	 **/
+	public $save_map = FALSE;
+
+
+
+	/**
+	 * Table name
+	 *
+	 * @access public
+	 * @var string
+	 **/
+	public $save_table = FALSE;
+
+
+
+	/**
 	 * Should the form be send with php mail() after validation
 	 *
+	 * @access public
 	 * @var bool
 	 **/
 	public $sendform = TRUE;
@@ -327,7 +471,6 @@ class formz {
 	 **/
 	function __construct( $args = '' ) {
 		$this->action = $_SERVER['PHP_SELF'];
-
 		$args = $this->_chop_string($args);
 
 		if ( $args ) :
@@ -341,6 +484,22 @@ class formz {
 
 		endif;
 	}
+
+
+
+	/**
+	 * Add Slashes
+	 *
+	 * @access protected
+	 * @param string $value
+	 * @return void
+	 * @author Ralf Hortt
+	 **/
+	protected function _add_slashes( $value )
+	{
+		return str_replace( array(',', '=', '&'), array('\,', '\=', '\&'), $value );
+	}
+
 
 
 	/**
@@ -373,6 +532,8 @@ class formz {
 	public function _chop_string($string)
 	{
 		if ( !is_array($string) && !is_object($string)) :
+		
+			$ignore = array( 'pattern', 'regex', 'replace' );
 
 			$array = preg_split('/(?<!\\\)&/i',$string); // Cut at '&'
 
@@ -383,16 +544,22 @@ class formz {
 						$arg = preg_split('/(?<!\\\)=/i',$str); // Cut at '='
 
 						if (preg_match('/(?<!\\\),/i',$arg[1])) :
-							$arg[1] = preg_split('/(?<!\\\),/i',$arg[1]); // Cut at ','
+						
+							if ( !in_array($arg[0], $ignore) ) :
+						
+								$arg[1] = preg_split('/(?<!\\\),/i',$arg[1]); // Cut at ','
 
-							if ( is_array($arg[1]) ) :
-								foreach ( $arg[1] as $key => $val ) :
-									if ( strpos($val, '::') ) : // Cut at '::'ß
-										$v = explode('::', $val);
-										$arg[1][$key] = array( 'key' => $v[0], 'value' => $v[1]);
-									endif;
-								endforeach;
+								if ( is_array($arg[1]) ) :
+									foreach ( $arg[1] as $key => $val ) :
+										if ( strpos($val, '::') ) : // Cut at '::'ß
+											$v = explode('::', $val);
+											$arg[1][$key] = array( 'key' => $v[0], 'value' => $v[1]);
+										endif;
+									endforeach;
+								endif;
+							
 							endif;
+							
 						endif;
 
 						$return[$arg[0]] = $arg[1];
@@ -468,6 +635,54 @@ class formz {
 
 
 	/**
+	 * MySQL Autosave function
+	 *
+	 * @return bool TRUE/FALSE
+	 * @author Ralf Hortt
+	 **/
+	protected function _mysql_autosave()
+	{
+		// Create own map
+		if ( FALSE === $this->save_map ) :
+			$this->save_map = array();
+			$res = mysql_query("SHOW COLUMNS FROM $this->save_table");
+			while ($row = mysql_fetch_assoc($res)) :
+				if ( FALSE === $this->save_key && 'PRI' == $row['Key'] )
+					$this->save_key = $row['Field'];
+				$this->save_map[$row['Field']] = $row['Field'];
+			endwhile;
+			$this->save_map = array_intersect_key( $this->save_map, $this->data );
+		endif;
+		
+		// Merge
+		foreach ( $this->save_map as $key => $value ) :
+			$this->save_map[$key] = $this->data[$value];
+		endforeach;
+		
+		// Build query
+		if ( array_key_exists($this->save_key, $this->data) ) :
+			$vars = '';
+			foreach ( $this->save_map as $key => $value ) :
+				$vars .= ', '.$key . '=\'' . $value . '\'';
+			endforeach;
+			$vars = substr( $vars, 2);
+			$sql = "UPDATE $this->save_table SET $vars WHERE $this->save_key = '{$this->data[$this->save_key]}'";
+		else :
+			$sql = "INSERT INTO $this->save_table (" . implode( ',', array_keys($this->save_map) ) . ") VALUES ( '" . implode( '\',\'', $this->save_map ) . "')";
+		endif;
+		
+		// Run query and return
+		if ( mysql_query($sql) ) :
+			return TRUE;
+		else :
+			echo mysql_error();
+			return FALSE;
+		endif;
+	}
+
+
+
+	/**
 	 * Creates an attribute string
 	 *
 	 * @access protected
@@ -516,7 +731,7 @@ class formz {
 					null;
 				// all other
 				else :
-					$attribute_string .= $key . '="' . $val . '" ';
+					$attribute_string .= $key . '="' . $this->_remove_slashes( $val ) . '" ';
 				endif;
 
 			endforeach;
@@ -543,6 +758,19 @@ class formz {
 
 
 	/**
+	 * Remove Slashes
+	 *
+	 * @param string $value 
+	 * @return string
+	 * @author Ralf Hortt
+	 */
+	protected function _remove_slashes( $value )
+	{
+		return str_replace( array('\,', '\=', '\&'), array(',', '=', '&'), $value );
+	}
+
+
+	/**
 	 * Sanitize a string
 	 *
 	 * @access protected
@@ -552,7 +780,7 @@ class formz {
 	 **/
 	 protected function _sanitize( $string )
 	 {
-	 	$string = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $string));
+	 	$string = strtolower(preg_replace("/[^a-zA-Z0-9_-]/", "", $string));
 		return $string;
 	 }
 
@@ -655,12 +883,19 @@ class formz {
 	 * Button
 	 *
 	 * @access public
-	 * @param string $args 
+	 * @param string $args - defined by class
+	 * @param string $arguments - defined by user
 	 * @return void
 	 * @author Ralf Hortt
 	 **/
-	public function add_element( $args )
+	public function add_element( $args, $arguments = array() )
 	{
+		// Combine arguments
+		if ( is_array( $arguments ) )
+			$args = array_merge( $this->_chop_string( $args ), $arguments );
+		else
+			$args = $args . $arguments;
+		
 		// Build config array
 		$e = $this->_chop_string( $args );
 
@@ -692,7 +927,7 @@ class formz {
 	 **/
 	public function button( $args )
 	{
-		$this->add_element( 'type=button&' . $args );
+		$this->add_element( 'type=button&', $args );
 	}
 
 
@@ -707,7 +942,7 @@ class formz {
 	 **/
 	public function checkbox( $args )
 	{
-		$this->add_element( 'type=checkbox&' . $args );
+		$this->add_element( 'type=checkbox&', $args );
 	}
 
 
@@ -726,6 +961,28 @@ class formz {
 		$error = FALSE;
 
 		if ( FALSE !== $this->data ) :
+
+			// Sanitize Field
+			if ( isset($e['sanitize']) ) :
+
+				$this->data[$e['name']] = filter_var( $this->data[$e['name']], $this->sanitize[$e['sanitize']], $this->sanitize_flags[$e['sanitize_flag']] );
+
+			endif;
+
+			// Replace
+			if ( isset($e['pattern']) && isset($e['replace']) ) :
+
+				$this->data[$e['name']] = preg_replace( $e['pattern'], $e['replace'], $this->data[$e['name']] );
+
+			endif;
+			
+			// Filter
+			if ( isset($e['filter']) && is_callable($e['filter']) ) :
+
+				$this->data[$e['name']] = call_user_func( $e['filter'], $this->data[$e['name']] );
+
+			endif;
+
 			// Field is empty
 			if ( isset($e['required']) && !$this->data[$e['name']] ) :
 
@@ -748,7 +1005,7 @@ class formz {
 
 			// Dependency on other fields
 			if ( isset($e['require']) ) :
-
+				
 				if ( is_array($e['require'])) :
 
 					foreach ( $e['require'] as $require ) :
@@ -764,17 +1021,21 @@ class formz {
 
 				else :
 
-					if ( !isset($this->data[$e['require']]) ) :
-						if ( TRUE === $return_error_message )
+					if ( !isset($this->data[$e['require']]) || '' == $this->data[$e['require']] ) :
+					
+						if ( TRUE === $return_error_message ) :
 							return $this->_render_error( $e['data-error-message'] );
-						else
+						else :
 							$error = TRUE;
+						endif;
+						
 					endif;
 
 				endif;
 
 			endif;
 
+			// Regex Validation
 			if ( isset($e['regex']) && 0 == preg_match($e['regex'], $this->data[$e['name']]) ) :
 
 				if ( TRUE === $return_error_message ) :
@@ -783,6 +1044,37 @@ class formz {
 					$error = TRUE;
 				endif;
 
+			endif;
+			
+			// Filter Validation
+			if ( isset($e['validate']) ) :
+
+				if ( is_array($e['validate'])) :
+
+					foreach ( $e['validate'] as $filter ) :
+						
+						if ( FALSE === filter_var($this->data[$e['name']], $this->filter[$e['validate']], $this->filter_flag[$e['validate_flag']]) ) :
+							if ( TRUE === $return_error_message ) :
+								return $this->_render_error( $e['data-validate-message'] );
+							else :
+								$error = TRUE;
+							endif;
+						endif;
+					
+					endforeach;
+
+				else :
+					$this->filter[$filter];
+					if ( FALSE === filter_var($this->data[$e['name']], $this->filter[$e['validate']], $this->filter_flag[$e['validate_flag']]) ) :
+						if ( TRUE === $return_error_message ) :
+							return $this->_render_error( $e['data-validate-message'] );
+						else :
+							$error = TRUE;
+						endif;
+					endif;
+				
+				endif;
+				
 			endif;
 
 			if ( TRUE === $error )
@@ -838,7 +1130,7 @@ class formz {
 	 **/
 	public function color( $args )
 	{
-		$this->add_element( 'type=color&' . $args );
+		$this->add_element( 'type=color&', $args );
 	}
 
 
@@ -853,7 +1145,7 @@ class formz {
 	 **/
 	public function date( $args )
 	{
-		$this->add_element( 'type=date&' . $args );
+		$this->add_element( 'type=date&', $args );
 	}
 
 
@@ -868,7 +1160,7 @@ class formz {
 	 **/
 	public function datetime( $args )
 	{
-		$this->add_element( 'type=datetime&' . $args );
+		$this->add_element( 'type=datetime&', $args );
 	}
 
 
@@ -883,7 +1175,7 @@ class formz {
 	 **/
 	public function datetimelocal( $args )
 	{
-		$this->add_element( 'type=datetime-local&' . $args );
+		$this->add_element( 'type=datetime-local&', $args );
 	}
 
 
@@ -913,7 +1205,7 @@ class formz {
 	 **/
 	public function email( $args )
 	{
-		$this->add_element( 'type=email&' . $args );
+		$this->add_element( 'type=email&', $args );
 	}
 
 
@@ -961,7 +1253,7 @@ class formz {
 		if ( 'multipart/form-data' != $this->enctype )
 			$this->enctype = 'multipart/form-data';
 
-		$this->add_element( 'type=file&' . $args );
+		$this->add_element( 'type=file&', $args );
 	}
 
 
@@ -975,7 +1267,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function input( $args ) {
-		$this->add_element( 'type=text&' . $args );
+		$this->add_element( 'type=text&', $args );
 	}
 
 
@@ -989,7 +1281,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function label( $args ) {
-		$this->add_element( 'type=label&' . $args );
+		$this->add_element( 'type=label&', $args );
 	}
 
 
@@ -1003,7 +1295,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function image( $args ) {
-		$this->add_element( 'type=input&' . $args );
+		$this->add_element( 'type=image&', $args );
 	}
 
 
@@ -1017,7 +1309,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function hidden( $args ) {
-		$this->add_element( 'type=hidden&' . $args );
+		$this->add_element( 'type=hidden&', $args );
 	}
 
 
@@ -1073,7 +1365,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function month( $args ) {
-		$this->add_element( 'type=month&' . $args );
+		$this->add_element( 'type=month&' , $args );
 	}
 
 
@@ -1087,7 +1379,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function number( $args ) {
-		$this->add_element( 'type=number&' . $args );
+		$this->add_element( 'type=number&', $args );
 	}
 
 
@@ -1101,7 +1393,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function password( $args ) {
-		$this->add_element( 'type=password&' . $args );
+		$this->add_element( 'type=password&', $args );
 	}
 
 
@@ -1115,7 +1407,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function radio( $args ) {
-		$this->add_element( 'type=radio&' . $args );
+		$this->add_element( 'type=radio&' , $args );
 	}
 
 
@@ -1129,7 +1421,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function range( $args ) {
-		$this->add_element( 'type=range&' . $args );
+		$this->add_element( 'type=range&' , $args );
 	}
 
 
@@ -1148,14 +1440,23 @@ class formz {
 
 			if ( $this->sendform ) :
 				if ( $this->sendform() ) :
-					if ( is_callable( $this->callback ) ) call_user_func( $this->callback );
+					if ( is_callable( $this->callback ) )
+						call_user_func( $this->callback, $this->data );
+					$output = '<div id="' . $this->id . '"><p class="message success">' . $this->success_message . '</p></div>';
+				else :
+					$output = '<div id="' . $this->id . '"><p class="message error">' . $this->global_error_message . '</p></div>';
+				endif;
+			elseif ( $this->save_form && $this->save_table ) :
+				if ( $this->_mysql_autosave() ) :
+					if ( is_callable( $this->callback ) )
+						call_user_func( $this->callback, $this->data );
 					$output = '<div id="' . $this->id . '"><p class="message success">' . $this->success_message . '</p></div>';
 				else :
 					$output = '<div id="' . $this->id . '"><p class="message error">' . $this->global_error_message . '</p></div>';
 				endif;
 			else :
 				if ( is_callable( $this->callback ) ) :
-					 call_user_func($this->callback);
+					 call_user_func($this->callback, $this->data);
 					$output = '<div id="' . $this->id . '"><p class="message success">' . $this->success_message . '</p></div>';
 				else :
 					$output = '<div id="' . $this->id . '"><p class="message error">' . $this->global_error_message . '</p></div>';
@@ -1515,7 +1816,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function reset( $args ) {
-		$this->add_element( 'type=reset&' . $args );
+		$this->add_element( 'type=reset&' , $args );
 	}
 
 
@@ -1555,6 +1856,18 @@ class formz {
 		# Callback error message
 		if ( isset($args['callback_message']) )
 			$this->form[$args['name']]['data-callback-message'] = $args['callback_message'];
+		
+		# Filter
+		if ( isset($args['validate']) )
+			$this->form[$args['name']]['validate'] = $args['validate'];
+		
+		# Filter flag
+		if ( isset($args['validate_flag']) )
+			$this->form[$args['name']]['validate_flag'] = $args['validate_flag'];
+		
+		# Filter error message
+		if ( isset($args['validate_message']) )
+			$this->form[$args['name']]['data-validate-message'] = $args['validate_message'];
 
 		# This field require different fields to be not empty
 		if ( isset($args['require']) )
@@ -1588,7 +1901,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function search( $args ) {
-		$this->add_element( 'type=search&' . $args );
+		$this->add_element( 'type=search&' , $args );
 	}
 
 
@@ -1601,7 +1914,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function select( $args ) {
-		$this->add_element( 'type=select&' . $args );
+		$this->add_element( 'type=select&' , $args );
 	}
 
 
@@ -1706,7 +2019,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function submit( $args ) {
-		$this->add_element( 'type=submit&' . $args );
+		$this->add_element( 'type=submit&' , $args );
 	}
 
 
@@ -1719,7 +2032,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function tel( $args ) {
-		$this->add_element( 'type=tel&' . $args );
+		$this->add_element( 'type=tel&' , $args );
 	}
 
 
@@ -1732,7 +2045,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function textarea( $args ) {
-		$this->add_element( 'type=textarea&' . $args );
+		$this->add_element( 'type=textarea&' , $args );
 	}
 
 
@@ -1745,7 +2058,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function time( $args ) {
-		$this->add_element( 'type=time&' . $args );
+		$this->add_element( 'type=time&' , $args );
 	}
 
 
@@ -1758,7 +2071,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function url( $args ) {
-		$this->add_element( 'type=url&' . $args );
+		$this->add_element( 'type=url&' , $args );
 	}
 
 
@@ -1771,7 +2084,7 @@ class formz {
 	 * @author Ralf Hortt
 	 **/
 	public function week( $args ) {
-		$this->add_element( 'type=week&' . $args );
+		$this->add_element( 'type=week&' , $args );
 	}
 
 
