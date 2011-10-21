@@ -17,10 +17,12 @@ function validate() {
 <dl class="clearfix">
 	<dt>label</dt>
 	<dd>Label text</dd>
+	<dt>HTML attributes</dt>
+	<dd>You can pass any valid HTML attriubte in the string, even data- attributes!</dd>
 	<dt>wrap</dt>
-	<dd>Possible values: both (default), before, after or none; Should the wrapping element included?<br>You can pass any html attribute of input with a value, even data-attributes</dd>
-	<dt>note:</dt>
-	<dd>If you use ',', '&amp;' or '=' in an attribute you have to escape them</dd>
+	<dd>Possible values: both (default), before, after or none; Should the wrapping element included?</dd>
+	<dt><small>note:</small></dt>
+	<dd><small>If you use ',', '&amp;' or '=' in an attribute you have to escape them</small></dd>
 </dl>
 
 <h2>Input</h2>
@@ -95,8 +97,8 @@ $form->render();
 <?php
 $form = new formz();
 $form->id = 'default';
-$form->input('name=defaultvalue&label=Input:&default=This is a default value');
-$form->html('<pre><code>' . highlight_string('<?php $form->input(\'name=input&label=Input:&default=This is a default value\'); ?>',true) . '</code></pre>');
+$form->input('name=defaultvalue&label=Input:&value=This is a default value');
+$form->html('<pre><code>' . highlight_string('<?php $form->input(\'name=input&label=Input:&value=This is a default value\'); ?>',true) . '</code></pre>');
 $form->render();
 ?>
 

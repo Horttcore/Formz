@@ -9,8 +9,12 @@ $title = '&raquo; Filtering';
 require_once( '../class.formz.php' );
 
 # Demo function
-function validate() {
-	return true;
+function filter( $data ) {
+	echo $data['string'];
+}
+
+function filter_function( $str) {
+	return str_replace(' 123', '', $str );
 }
 
 # Include Header
@@ -21,31 +25,30 @@ require_once('../include/header.php');
 <h2>Arguments</h2>
 
 <dl class="clearfix">
-	<dt>validate</dt>
-	<dd>Validate name</dd>
-	<dt>validate_flag</dt>
-	<dd>Validate flag</dd>
-	<dt>validate_message</dt>
-	<dd>Error message if filter can't validate</dd>
+	<dt>filter</dt>
+	<dd>callback function</dd>
 </dl>
 
 <h2>Filtering</h2>
 
 <?php
 # Init
-$form = new formz('id=first&callback=validate&success_message=Test passed');
+$form = new formz('id=first&callback=filter&success_message=');
 $form->sendform = false;
 $form->error_position = 'after';
 # Fields
-$form->input('name=email&label=E-Mail:');
-$form->button('label=Validate&type=submit&name=send');
-# Validation
-$form->required('name=email&error_message=Please enter something&validate=FILTER_VALIDATE_EMAIL&validate_message=Falsches Format');
+$form->input('name=string&value=Hello World 123!&label=Filter&filter=filter_function');
+$form->button('label=Remove \'123\'&type=submit&name=send');
 # Output
 $form->render();
 ?>
 
 <pre><code><?php highlight_string('<?php
+function filter_function( $str) {
+	return str_replace(\' 123\', \'\', $str );
+}
+	
+$form->input(\'name=string&value=Hello World 123!&label=Filter&filter=filter_function\');
 ?>') ?></code></pre>
 
 

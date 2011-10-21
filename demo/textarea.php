@@ -10,12 +10,12 @@ require_once('../include/header.php');
 	<dt>Arguments</dt>
 	<dt>label</dt>
 	<dd>Label text</dd>
-	<dt>value</dt>
-	<dd>Comma seperated values; Use realvalue::Labelvalue style, if the label and values are different</dd>
+	<dt>HTML attributes</dt>
+	<dd>You can pass any valid HTML attriubte in the string, even data- attributes!</dd>
 	<dt>wrap</dt>
 	<dd>Possible values: both (default), before, after or none; Should the wrapping element included?<br>You can pass any html attribute of input with a value, even data-attributes</dd>
-	<dt>note:</dt>
-	<dd>If you use ',', '&amp;' or '=' in an attribute you have to escape them</dd>
+	<dt><small>note:</small></dt>
+	<dd><small>If you use ',', '&amp;' or '=' in an attribute you have to escape them</small></dd>
 </dl>
 
 <h2>Default</h2>

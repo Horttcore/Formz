@@ -9,14 +9,16 @@ require_once('../include/header.php');
 <dl class="clearfix">
 	<dt>label</dt>
 	<dd>Label text</dd>
+	<dt>HTML attributes</dt>
+	<dd>You can pass any valid HTML attriubte in the string, even data- attributes!</dd>
 	<dt>value</dt>
-	<dd>Comma seperated values; Use realvalue::Labelvalue style, if the label and values are different</dd>
+	<dd>Comma seperated values;<br>Use realvalue::Label style, if the label and values are different<br>Use $::Label for input field</dd>
 	<dt>align</dt>
 	<dd>horizontal (default) or vertical</dd>
 	<dt>checked</dt><dd>Comma seperated values of checked values</dd>
 	<dt>wrap</dt><dd>Possible values: both (default), before, after or none; Should the wrapping element included?<br>You can pass any html attribute of input with a value, even data-attributes</dd>
-	<dt>note:</dt>
-	<dd>If you use ',', '&amp;' or '=' in an attribute you have to escape them</dd>
+	<dt><small>note:</small></dt>
+	<dd><small>If you use ',', '&amp;' or '=' in an attribute you have to escape them</small></dd>
 </dl>
 
 <h2>Default</h2>

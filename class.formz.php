@@ -122,41 +122,11 @@ class formz {
 
 
 	/**
-	 * Filter Dictonary
+	 * Global filter callback
 	 *
-	 * @access protected
-	 * @var array
+	 * @var mixed Callback function or Array with callback functions
 	 **/
-	protected $filter = array(
-		'FILTER_VALIDATE_BOOLEAN' => 258,
-		'FILTER_VALIDATE_EMAIL' => 274,
-		'FILTER_VALIDATE_FLOAT' => 259,
-		'FILTER_VALIDATE_INT' => 257,
-		'FILTER_VALIDATE_IP' => 275,
-		'FILTER_VALIDATE_REGEXP' => 272,
-		'FILTER_VALIDATE_URL' => 273
-	);
-
-
-
-	/**
-	 * Filter flags
-	 *
-	 * @access protected
-	 * @var array
-	 **/
-	protected $filter_flags = array(
-		'FILTER_NULL_ON_FAILURE' => 134217728,
-		'FILTER_FLAG_ALLOW_THOUSAND' => 8192,
-		'FILTER_FLAG_ALLOW_OCTAL' => 1,
-		'FILTER_FLAG_ALLOW_HEX' => 2,
-		'FILTER_FLAG_IPV4' => 1048576,
-		'FILTER_FLAG_IPV6' => 2097152,
-		'FILTER_FLAG_NO_PRIV_RANGE' => 8388608,
-		'FILTER_FLAG_NO_RES_RANGE' => 4194304,
-		'FILTER_FLAG_PATH_REQUIRED' => 262144,
-		'FILTER_FLAG_QUERY_REQUIRED' => 524288
-	);
+	public $filter;
 
 
 
@@ -451,6 +421,45 @@ class formz {
 	 * @var string
 	 **/
 	public $to = null;
+
+
+
+	/**
+	 * Filter Dictonary
+	 *
+	 * @access protected
+	 * @var array
+	 **/
+	protected $validate_dictonary = array(
+		'FILTER_VALIDATE_BOOLEAN' => 258,
+		'FILTER_VALIDATE_EMAIL' => 274,
+		'FILTER_VALIDATE_FLOAT' => 259,
+		'FILTER_VALIDATE_INT' => 257,
+		'FILTER_VALIDATE_IP' => 275,
+		'FILTER_VALIDATE_REGEXP' => 272,
+		'FILTER_VALIDATE_URL' => 273
+	);
+
+
+
+	/**
+	 * Filter flags
+	 *
+	 * @access protected
+	 * @var array
+	 **/
+	protected $validate_dictonary_flags = array(
+		'FILTER_NULL_ON_FAILURE' => 134217728,
+		'FILTER_FLAG_ALLOW_THOUSAND' => 8192,
+		'FILTER_FLAG_ALLOW_OCTAL' => 1,
+		'FILTER_FLAG_ALLOW_HEX' => 2,
+		'FILTER_FLAG_IPV4' => 1048576,
+		'FILTER_FLAG_IPV6' => 2097152,
+		'FILTER_FLAG_NO_PRIV_RANGE' => 8388608,
+		'FILTER_FLAG_NO_RES_RANGE' => 4194304,
+		'FILTER_FLAG_PATH_REQUIRED' => 262144,
+		'FILTER_FLAG_QUERY_REQUIRED' => 524288
+	);
 
 
 
@@ -979,9 +988,27 @@ class formz {
 			// Filter
 			if ( isset($e['filter']) && is_callable($e['filter']) ) :
 
-				$this->data[$e['name']] = call_user_func( $e['filter'], $this->data[$e['name']] );
+				$this->data[$e['name']] = call_user_func( $e['filter'], $this->data[$e['name']], $e['name'] );
 
 			endif;
+			
+			// Global filter 
+			if ( isset($this->filter) ) :
+
+				if ( is_array($this->filter) ) :
+					foreach ( $this->filter as $filter ) :
+						if ( is_callable($filter) ) :
+							$this->data[$e['name']] = call_user_func( $filter, $this->data[$e['name']], $e['name'] );
+						endif;
+					endforeach;
+				else :
+					if ( is_callable($this->filter) ) :
+						$this->data[$e['name']] = call_user_func( $this->filter, $this->data[$e['name']], $e['name'] );
+					endif;
+				endif;
+
+			endif;
+			
 
 			// Field is empty
 			if ( isset($e['required']) && !$this->data[$e['name']] ) :
@@ -1046,14 +1073,14 @@ class formz {
 
 			endif;
 			
-			// Filter Validation
+			// PHP Validation
 			if ( isset($e['validate']) ) :
 
 				if ( is_array($e['validate'])) :
 
 					foreach ( $e['validate'] as $filter ) :
 						
-						if ( FALSE === filter_var($this->data[$e['name']], $this->filter[$e['validate']], $this->filter_flag[$e['validate_flag']]) ) :
+						if ( FALSE === filter_var($this->data[$e['name']], $this->validate_dictonary[$e['validate']], $this->validate_dictonary_flags[$e['validate_flag']]) ) :
 							if ( TRUE === $return_error_message ) :
 								return $this->_render_error( $e['data-validate-message'] );
 							else :
@@ -1065,7 +1092,7 @@ class formz {
 
 				else :
 					$this->filter[$filter];
-					if ( FALSE === filter_var($this->data[$e['name']], $this->filter[$e['validate']], $this->filter_flag[$e['validate_flag']]) ) :
+					if ( FALSE === filter_var($this->data[$e['name']], $this->validate_dictonary[$e['validate']], $this->validate_flag[$e['validate_flag']]) ) :
 						if ( TRUE === $return_error_message ) :
 							return $this->_render_error( $e['data-validate-message'] );
 						else :
