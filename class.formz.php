@@ -52,6 +52,16 @@ class formz {
 
 
 	/**
+	 * Error message if to copy field is checked but copy_to isn't filled out
+	 *
+	 * @access public
+	 * @var string Form field name
+	 **/
+	public $copy_message;
+
+
+
+	/**
 	 * Which field should handle the copy email address
 	 *
 	 * @access public
@@ -1121,12 +1131,19 @@ class formz {
 	 **/
 	protected function checkform()
 	{
+		// Get submitted form data
 		if ( 'post' == $this->method && isset($_POST['formz-' . $this->id ]) ) :
 			$this->data = $_POST;
 		elseif ( 'get' == $this->method && isset($_GET['formz-' . $this->id ]) ) :
 			$this->data = $_GET;
 		endif;
-
+		
+		// Copy to validation
+		if ( $this->copy && $this->copy_to && isset($this->data['copy']) ) :
+			$this->required('name=' . $this->copy_to . '&error_message=' .  $this->copy_message);
+		endif;
+		
+		// Check the form
 		if ( $this->form ) :
 
 			foreach ( $this->form as $element ) :
