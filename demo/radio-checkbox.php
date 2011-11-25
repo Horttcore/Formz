@@ -29,8 +29,9 @@ require_once( '../class.formz.php' );
 # Init
 $form = new formz();
 # Fields
-$form->checkbox('label=Checkbox&value=one,two,three,four,five,six');
-$form->radio('label=Radio&value=one,two,three,four,five,six');
+$form->checkbox('label=Checkbox&value=one,two,three,four,five,six&name=el1');
+$form->radio('label=Radio&value=one,two,three,four,five,six&name=el2');
+
 # Output
 $form->render();
 ?>
@@ -44,8 +45,8 @@ $form->radio(\'label=Radio&value=one,two,three,four,five,six\');
 # Init
 $form = new formz();
 # Fields
-$form->checkbox('label=Checkbox&value=one,two,three&align=vertical');
-$form->radio('label=Radio&value=one,two,three&align=vertical');
+$form->checkbox('label=Checkbox&value=one,two,three&align=vertical&name=el3');
+$form->radio('label=Radio&value=one,two,three&align=vertical&name=el4');
 # Output
 $form->render();
 ?>
@@ -59,8 +60,8 @@ $form->radio(\'label=Radio&value=one,two,three&align=vertical\');
 # Init
 $form = new formz();
 # Fields
-$form->checkbox('label=Checkbox&value=1::one,2::two,3::three');
-$form->radio('label=Radio&value=1::one,2::two,3::three');
+$form->checkbox('label=Checkbox&value=1::one,2::two,3::three&name=el5');
+$form->radio('label=Radio&value=1::one,2::two,3::three&name=el6');
 # Output
 $form->render();
 ?>
@@ -74,8 +75,8 @@ $form->radio(\'label=Radio&value=1::one,2::two,3::three\');
 # Init
 $form = new formz();
 # Fields
-$form->checkbox('label=Checkbox&value=one,two,three,$::any number');
-$form->radio('label=Radio&value=one,two,three,$::any number');
+$form->checkbox('label=Checkbox&value=one,two,three,$::any number&name=el7');
+$form->radio('label=Radio&value=one,two,three,$::any number&name=el8');
 # Output
 $form->render();
 ?>
@@ -89,8 +90,8 @@ $form->radio(\'label=Radio&value=one,two,three,$::any number\');
 # Init
 $form = new formz();
 # Fields
-$form->checkbox('label=Checkbox&value=one,two,three&checked=one,two');
-$form->radio('label=Radio&value=one,two,three&checked=two');
+$form->checkbox('label=Checkbox&value=one,two,three&checked=one,two&name=el9');
+$form->radio('label=Radio&value=one,two,three&checked=two&name=el10');
 # Output
 $form->render();
 ?>
