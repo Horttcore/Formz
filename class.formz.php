@@ -2056,6 +2056,32 @@ class formz {
 
 
 	/**
+	 * Set Form Values
+	 *
+	 * @access public
+	 * @param array $data Data array ( ´fieldname´ => ´value´ )
+	 * @return void
+	 * @author Ralf Hortt
+	 **/
+	public function set_data( array $data )
+	{
+		foreach ( $data as $key => $value ) :
+			switch ( $this->form[$key]['type'] ) :
+				case 'checkbox' : case 'radio' :
+					$this->form[$key]['checked'] = $value;
+				break;
+				case 'select' : 
+					$this->form[$key]['selected'] = $value;
+				break;
+				default :
+					$this->form[$key]['value'] = $value;
+				break;
+			endswitch;
+		endforeach;
+	}
+
+
+	/**
 	 * Submit
 	 *
 	 * @access public

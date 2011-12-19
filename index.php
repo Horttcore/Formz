@@ -6,8 +6,8 @@
 	<li><a href="./demo/radio-checkbox.php">Radiobuttons &amp; Checkboxes</a></li>
 	<li><a href="./demo/select.php">Select</a></li>
 	<li><a href="./demo/textarea.php">Textarea</a></li>
-
 	<li><a href="./demo/elements.php">All elements</a></li>
+	<li><a href="./demo/debug.php">Debug</a></li>
 </ul>
 
 <h2>Options</h2>
@@ -32,6 +32,11 @@
 <ul>
 	<li><a href="./demo/mail.php">Mail</a></li>
 	<li><a href="./demo/db.php">Database</a></li>
+</ul>
+
+<h2>Misc</h2>
+<ul>
+	<li><a href="./demo/set-data.php">Set Data</a></li>
 </ul>
 
 <?php require_once('./include/footer.php'); ?>
