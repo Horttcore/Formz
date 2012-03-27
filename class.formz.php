@@ -22,6 +22,16 @@ class formz {
 
 
 	/**
+	 * Append ´autocomplete="off"´ as form attribute if is set to FALSE
+	 * 
+	 * @access public
+	 * @var bool
+	 **/
+	public $autocomplete = TRUE;
+
+
+
+	/**
 	 * Plain text mail body
 	 *
 	 * @access protected
@@ -750,7 +760,7 @@ class formz {
 					null;
 				// all other
 				else :
-					$attribute_string .= $key . '="' . $this->_remove_slashes( $val ) . '" ';
+					$attribute_string .= trim( $key ) . '="' . trim( $this->_remove_slashes( $val ) ) . '" ';
 				endif;
 
 			endforeach;
@@ -929,6 +939,10 @@ class formz {
 		// Checks if id is present; sets id to 'name' if it isn't present
 		if ( !isset($e['id']) )
 			$e['id'] = $e['name'];
+
+		// Checks if multiple has [] in name
+		if ( isset($e['multiple']) && FALSE === strpos($e['name'], '[') )
+			$e['name'] .= '[]';
 
 		// Pushs the element into the form
 		$this->form[$e['name']] = $e;
@@ -1615,7 +1629,9 @@ class formz {
 	{
 		$novalidate = ( $this->novalidate ) ? 'novalidate="novalidate"' : '';
 		$enctype = ( '' != $this->enctype ) ? 'enctype="' . $this->enctype . '"' : '';
-		return '<form ' . $novalidate . ' method="' . $this->method . '" action="' . $this->action . '" id="' . $this->id . '" ' . $enctype . ' >';
+		$autocomplete = ( FALSE === $this->autocomplete ) ? 'off' : 'on';
+
+		return '<form ' . $novalidate . ' method="' . $this->method . '" action="' . $this->action . '" id="' . $this->id . '" ' . $enctype . ' autocomplete="' . $autocomplete . '">';
 	}
 
 
